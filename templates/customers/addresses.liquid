@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div>
+                <h1>Addresses</h1>
+                {% for address in customer.addresses %}
+                    <div class="card w-25">
+                        <div class="card-body">
+                            {{ address | format_address }}
+                        </div>
+                        <div class="card-footer">
+                            <form action="/account/addresses/{{ address.id }}" method="POST" data-confirm-message="Delete Address">
+                                <input type="hidden" name="_method" value="delete">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col">
+            <div style="height: 100px;">
+                <h2>New Address</h2>
+                {% form 'customer_address', customer.new_address %}
+            
+                {% include 'form-error', form:form %}
+            
+                <label for="first_name">First Name</label>
+                <input class="form-control" type="text" value="" name="address[first_name]" size="30" />
+                
+                <label for="last_name">Last Name</label>
+                <input class="form-control" type="text" value="" name="address[last_name]" size="30" />
+              
+                <label for="company">Company</label>
+                <input class="form-control" type="text" value="" name="address[company]" />
+      
+                <label for="address1">Address 1</label>
+                <input class="form-control" type="text" value="" name="address[address1]" />
+            
+                <label for="address2">Address 2</label>
+                <input class="form-control" type="text" value="" name="address[address2]" />
+         
+                <label for="city">City</label>
+                <input class="form-control" type="text" value="" name="address[city]" />
+             
+                <label for="country">Country</label>
+                <select class="form-select" name="address[country]" />{{ all_country_option_tags }}</select>
+            
+                <label for="province">Province</label>
+                <select class="form-select" name="address[province]" disabled /></select>
+              
+                <label for="zip">Zip/Post Code</label>
+                <input class="form-control" type="text" value="" name="address[zip]" />
+              
+                <label for="phone">Phone Number</label>
+                <input class="form-control" type="tel" value="" name="address[phone]" />
+           
+                <button class="btn btn-primary" type="submit">Add Address</button>
+            
+                {% endform %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,118 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      {%- comment -%}Edit these anchor tags for style{%- endcomment -%}
+        <a href=""><button class="btn"><</button></a>
+        {% if section.settings.num_of_sel == 1 %}
+            <a href="#">{{ section.settings.selector1 }}</a>
+          {% elsif section.settings.num_of_sel == 2 %}
+            <a href="#">{{ section.settings.selector1 }}</a>
+            <a href="#">{{ section.settings.selector2 }}</a>
+          {% elsif section.settings.num_of_sel == 3 %}
+            <a href="#">{{ section.settings.selector1 }}</a>
+            <a href="#">{{ section.settings.selector2 }}</a>
+            <a href="#">{{ section.settings.selector3 }}</a>
+          {% elsif section.settings.num_of_sel == 4 %}
+            <a href="#">{{ section.settings.selector1 }}</a>
+            <a href="#">{{ section.settings.selector2 }}</a>
+            <a href="#">{{ section.settings.selector3 }}</a>
+            <a href="#">{{ section.settings.selector4 }}</a>  
+        {% endif %}
+        <a href=""><button class="btn">></button></a>
+    </div>
+    <form action="/search" method="get" role="search">
+      {% include 'form-error', form:form %}
+        {%- comment -%}You need to change the options values to the type you want{%- endcomment -%}
+        <select class="form-select w-25" name="type">
+          <option selected>Type entered Here</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+        </select>
+        <select class="form-select w-25" name="type">
+          <option selected>Select a Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+        </select>
+        <select class="form-select w-25" name="type">
+          <option selected>Select a Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+        </select>
+        <select class="form-select w-25" name="type">
+          <option selected>Select a Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+          <option value="type">Type</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    {% include 'search' %}
+    <p>Sort By:</p>
+    <select name="sorting" id="sort_by" class="form-select form-select-sm w-25">
+      {% for option in collection.sort_options %}
+        <option value="{{ option.value }}" 
+          {% if option.value == collection.sort_by %}
+            selected
+          {% endif %}
+        >{{ option.name }}</option>
+      {% endfor %}
+    </select>
+    {% paginate collection.products by 2 %}
+      <h1>{{ collection.title }}</h1>
+      {% for product in collection.products %}
+        <div>
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+          {{ product.price | money }}
+          {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+          <a href="{{ product.url | within: collection }}">
+            <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+          </a>
+        </div>
+      {% else %}
+        <p>no matches</p>
+      {% endfor %}
+      {% if paginate.pages > 1 %}
+        {{ paginate | default_pagination }}
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "Selector",
+    "settings": [
+        {
+            "type": "range",
+            "id": "num_of_sel",
+            "label": "Number of Selectors",
+            "min": 1,
+            "max": 4,
+            "default": 4
+        },
+        {
+            "type": "text",
+            "id": "selector1",
+            "label": "Selector 1"
+        },
+        {
+            "type": "text",
+            "id": "selector2",
+            "label": "Selector 2"
+        },
+        {
+            "type": "text",
+            "id": "selector3",
+            "label": "Selector 3"
+        },
+        {
+            "type": "text",
+            "id": "selector4",
+            "label": "Selector 4"
+        }
+    ]
+}
+{% endschema %}

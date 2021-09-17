@@ -1,0 +1,295 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+  <div class="container">
+    <div class="row"> 
+      <div class="col-md-6">
+      <img class="border" src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
+      {% for image in product.images %}
+        <a href="{{ image.src | img_url: 'large' }}">
+          <img class="border" src="{{ image.src | img_url: 'small' }}" alt="{{ image.alt | escape }}">
+        </a>
+      {% endfor %}
+      <h1>{{ product.title }}</h1>
+      </div>
+      <div class="col-md-6">
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+        <p class="line-item-property__field">
+          <input class="form-control w-25" id="zip" type="text" placeholder="Enter ZIP code" name="properties[Zip]">
+          <input class="form-control w-25" type="date" name="properties[Delivery Date]" id="date" placeholder="Delivery Date">
+        </p>
+
+
+        <h6>Cookie Flavor</h6>
+        <select class="form-select" name="properties[Flavor]" id="taste">
+        {% for block in section.blocks %}
+          {% assign item = block.settings %}
+          {% if block.type == 'text' %}
+          {% assign flavor = item.flavor %}
+          {% assign available = item.available %}
+          {% if available %}
+            <option value="{{ flavor }}">{{ flavor }}</option>
+            {% else %}
+            <option value="{{ flavor }}" disabled>{{ flavor }}</option>
+          {% endif %}
+          {% elsif block.type == 'image_picker' %}
+            {% assign show = item.show %}
+            {% assign image = item.image %}
+            {% assign image2 = item.image2 %}
+            {% assign image3 = item.image3 %}
+          {% elsif block.type == 'main_color' %}
+            {% assign color1 = item.color1 %}
+            {% assign color2 = item.color2 %}
+            {% assign color3 = item.color3 %}
+          {% elsif block.type == 'accent_color_1' %}
+            {% assign accentcolor1 = item.accentcolor1 %}
+            {% assign accentcolor2 = item.accentcolor2 %}
+            {% assign accentcolor3 = item.accentcolor3 %}
+          {% elsif block.type == 'accent_color_2' %}
+            {% assign accent_color1 = item.accent_color1 %}
+            {% assign accent_color2 = item.accent_color2 %}
+            {% assign accent_color3 = item.accent_color3 %}
+          {% elsif block.type == 'cookiesize' %}
+          {% assign show_size = item.show_size %}
+            {% assign size1 = item.size1 %},
+            {% assign size2 = item.size2 %}
+            {% assign size1value = item.size1value %}
+            {% assign size2value = item.size2value %}
+          {% endif %}
+        {% endfor %}
+      </select>
+          
+        {% if show %}
+          <h6>Choose a cookie style</h6>
+          <div class="d-flex">
+            
+            <div class="p-2">
+              <input type="radio" id="first" value="First Image" name="properties[Cookie Style]">
+              <label for="first"><img src="{{ image | img_url: 'small' }}" alt="{{ section.settings.image.alt }}"></label>
+            </div>
+            <div class="p-2">
+              <input type="radio" id="second" value="Second Image" name="properties[Cookie Style]">
+              <label for="second"><img src="{{ image2 | img_url: 'small' }}" alt="{{ section.settings.image.alt }}"></label>
+            </div>
+            <div class="p-2">
+              <input type="radio" id="third" value="Third Image" name="properties[Cookie Style]">
+              <label for="third"><img src="{{ image3 | img_url: 'small' }}" alt="{{ section.settings.image.alt }}"></label>
+            </div>
+            <p>Can't find the perfect color? <a href="">Choose a custom color</a></p>
+
+
+              <div class="" id="">
+                <label for="first_select">Main Color</label>
+                <select name="properties[Cookie Style Main Color]" id="first_select">
+                  <option value="{{ color1 }}">{{ color1 }}</option>
+                  <option value="{{ color2 }}">{{ color2 }}</option>
+                  <option value="{{ color3 }}">{{ color3 }}</option>
+                </select>
+                <label for="accent">Accent Color 1</label>
+                <select name="properties[Cookie Style Accent Color]" id="accent">
+                  <option value="{{ accentcolor1 }}">{{ accentcolor1 }}</option>
+                  <option value="{{ accentcolor2 }}">{{ accentcolor2 }}</option>
+                  <option value="{{ accentcolor3 }}">{{ accentcolor3 }}</option>
+                </select>
+                <label for="accent2">Accent Color 2</label>
+                <select name="properties[Cookie Style Accent 2]" id="accent2">
+                  <option value="{{ accent_color1 }}">{{ accent_color1 }}</option>
+                  <option value="{{ accent_color2 }}">{{ accent_color2 }}</option>
+                  <option value="{{ accent_color3 }}">{{ accent_color3 }}</option>
+                </select>
+              </div>
+            
+
+          </div>
+        {% endif %}
+      
+          {% if show_size %}
+            <h6>Choose Cookie Size</h6>
+            <div>
+              <input type="radio" id="size1" value="{{ size1value }}" name="properties[Size]">
+              <label for="size1">{{ size1 }}</label>
+              <input type="radio" id="size2" value="{{ size2value }}" name="properties[Size]">
+              <label for="size2">{{ size2 }}</label>
+            </div>
+          {% endif %}
+      <div>
+        <a href=""><button>Add an Inscription</button></a>
+      </div>
+      <div>
+        <input type="text" name="properties[Inscription]" maxlength="40" >
+      </div>
+      <select name="id" class="selectpicker" id="productSelect">
+        {% for variant in product.variants %}
+          {% if variant.available %}
+            <option value="{{ variant.id }}">
+              {{ variant.title }}
+            </option>
+            {% capture button %}<button type="submit" name="add" id="AddToCart">Add to cart</button>{% endcapture %}
+          {% else %}
+            <option disabled="disabled">
+              {{ variant.title }} - sold out
+            </option>
+            {% capture button %}<button type="submit" name="add" id="AddToCart" disabled="disabled">Add to cart</button>{% endcapture %}
+          {% endif %}
+        
+        {% endfor %}
+      </select><br>
+      {{ current_variant.price | money }}
+      <label for="Quantity">Quantity</label>
+      <input type="number" id="Quantity" name="quantity" value="12" min="12">
+      <p>Order 15 and save $12</p>
+      {{ button }}
+    </form>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+    "name": "Settings",
+    "presets": [
+        {
+            "category": "settings",
+            "name": "Settings"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "Images",
+            "type": "image_picker",
+            "settings": [
+              {
+                "type": "checkbox",
+                "id": "show",
+                "label": "Show Variant",
+                "default": true
+              },
+              {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Select Image"
+              },
+              {
+                "type": "image_picker",
+                "id": "image2",
+                "label": "Select Image"
+              },
+              {
+                "type": "image_picker",
+                "id": "image3",
+                "label": "Select Image"
+              }
+            ]
+        },
+        {
+            "name": "Flavors",
+            "type": "text",
+            "settings": [
+              {
+                "type": "text",
+                "id": "flavor",
+                "label": "Add a Flavor"
+              },
+              {
+                "type": "checkbox",
+                "id": "available",
+                "label": "Available"
+              }
+            ]
+        },
+        {
+            "name": "Main Color",
+            "type": "main_color",
+            "settings": [
+              {
+                "type": "text",
+                "id": "color1",
+                "label": "Color 1"
+              },
+              {
+                "type": "text",
+                "id": "color2",
+                "label": "Color 2"
+              },
+              {
+                "type": "text",
+                "id": "color3",
+                "label": "Color 3"
+              }
+            ]
+        },
+        {
+          "name": "Accent Color 1",
+          "type": "accent_color_1",
+          "settings": [
+            {
+              "type": "text",
+              "id": "accentcolor1",
+              "label": "Color 1"
+            },
+            {
+              "type": "text",
+              "id": "accentcolor2",
+              "label": "Color 2"
+            },
+            {
+              "type": "text",
+              "id": "accentcolor3",
+              "label": "Color 3"
+            }
+          ]
+        },
+        {
+          "name": "Accent Color 2",
+          "type": "accent_color_2",
+          "settings": [
+            {
+              "type": "text",
+              "id": "accent_color1",
+              "label": "Color 1"
+            },
+            {
+              "type": "text",
+              "id": "accent_color2",
+              "label": "Color 2"
+            },
+            {
+              "type": "text",
+              "id": "accent_color3",
+              "label": "Color 3"
+            }
+          ]
+        },
+        {
+          "name": "Cookie Size",
+          "type": "cookiesize",
+          "settings": [
+            {
+              "type": "checkbox",
+              "id": "show_size",
+              "label": "Show Variant"
+            },
+            {
+              "type": "text",
+              "id": "size1",
+              "label": "Size 1"
+            },
+            {
+              "type": "text",
+              "id": "size1value",
+              "label": "Value for size 1"
+            },
+            {
+              "type": "text",
+              "id": "size2",
+              "label": "Size 2"
+            },
+            {
+              "type": "text",
+              "id": "size2value",
+              "label": "Value for size 2"
+            }
+          ]
+        }
+    ]
+    
+}
+{% endschema %}

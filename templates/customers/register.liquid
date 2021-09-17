@@ -1,0 +1,29 @@
+<!-- /templates/customers/register.liquid -->
+<div class="py-5 my-5">
+    <div style="
+        width: 100%;
+        max-width: 330px;
+        margin: auto;
+    ">
+          {% form 'create_customer' %}
+
+          {% include 'form-error', form:form %}
+      
+          <label for="first_name">First Name</label>
+          <input class="form-control" type="text" value="" name="customer[first_name]" size="30" />
+      
+          <label for="last_name">Last Name</label>
+          <input class="form-control" type="text" value="" name="customer[last_name]" size="30" />
+      
+          <label for="email">Email Address</label>
+          <input class="form-control" type="email" value="" name="customer[email]" size="30" />
+      
+          <label for="password">Password</label>
+          <input class="form-control" type="password" value="" name="customer[password]" size="30" />
+          <p>Already a member? <a href="/account/login">Login</a></p>
+          <input class="btn btn-primary" type="submit" value="Create" />
+      
+          {% endform %}
+    </div>
+</div>
+

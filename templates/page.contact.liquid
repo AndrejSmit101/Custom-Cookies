@@ -1,0 +1,23 @@
+<div class="px-5">
+  <h1>{{ page.title }}</h1>
+  {% form 'contact' %}
+    {% if form.posted_successfully? %}
+     <p style="color: aquamarine;" class="bg-dark w-25 text-center">Thank you for contacting us</p> 
+     {% endif %}
+    {% include 'form-error', form:form %}
+    <label for="ContactFormFirstName">First Name</label>
+    <input class="form-control w-25" type="text" id="ContactFormFirstName" name="contact[first name]">
+    <label for="ContactFormLastName">Last Name</label>
+    <input class="form-control w-25" type="text" id="ContactFormLastName" name="contact[last name]">
+    <label for="ContactFormEmail">Email</label>
+    <input class="form-control w-25" type="email" id="ContactFormEmail" name="contact[email]">
+    <label for="ContactFormPhone">Phone</label>
+    <input class="form-control w-25" type="tel" id="ContactFormPhone" name="contact[phone]">
+    <label for="Subject">Subject</label>
+    <input class="form-control w-25" type="text" id="Subject" name="contact[subject]">
+    <label for="ContactFormMessage">Message</label>
+    <textarea class="form-control w-25" rows="10" id="ContactFormMessage" name="contact[body]"></textarea><br>
+    <input class="btn btn-primary" type="submit" value="send">
+  {% endform %}
+</div>
+

@@ -1,0 +1,58 @@
+<section class="inner-hero-section">
+    {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.image.alt }}">
+    {% else %}
+      {% capture current %}{% cycle 1,2 %}{% endcapture %}
+      {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1>{{ section.settings.title }}</h1>
+          {{ section.settings.description }}
+          <a href="{{ section.settings.button_link }}" class="btn btn-secondary">{{ section.settings.button_label }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+    "name": "Hero",
+    "presets": [
+        {
+            "category": "hero",
+            "name": "Hero"
+        }
+    ],
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Select Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Hero Title",
+            "default": "Example Title"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Example Description</p>"
+        },
+        {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label",
+            "default": "Example Button"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+        }
+    ]
+}
+{% endschema %}
