@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      {%- comment -%}Edit these anchor tags for style{%- endcomment -%}
+      <div class="d-flex justify-content-center align-items-center">
         <a href=""><button class="btn"><</button></a>
         {% if section.settings.num_of_sel == 1 %}
             <a href="#">{{ section.settings.selector1 }}</a>
@@ -19,38 +19,47 @@
             <a href="#">{{ section.settings.selector4 }}</a>  
         {% endif %}
         <a href=""><button class="btn">></button></a>
+      </div>
+      {%- comment -%}Edit these anchor tags for style{%- endcomment -%}
     </div>
-    <form action="/search" method="get" role="search">
-      {% include 'form-error', form:form %}
-        {%- comment -%}You need to change the options values to the type you want{%- endcomment -%}
-        <select class="form-select w-25" name="type">
-          <option selected>Type entered Here</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-        </select>
-        <select class="form-select w-25" name="type">
-          <option selected>Select a Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-        </select>
-        <select class="form-select w-25" name="type">
-          <option selected>Select a Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-        </select>
-        <select class="form-select w-25" name="type">
-          <option selected>Select a Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-          <option value="type">Type</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-    {% include 'search' %}
-    <p>Sort By:</p>
+    <div class="d-flex justify-content-center">
+      <form action="/search" method="get" role="search">
+        {% include 'form-error', form:form %}
+          {%- comment -%}You need to change the options values to the type you want{%- endcomment -%}
+          <div class="d-flex">
+            <select class="form-select" name="type">
+              <option selected>Type entered Here</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+            </select>
+            <select class="form-select" name="type">
+              <option selected>Select a Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+            </select>
+            <select class="form-select" name="type">
+              <option selected>Select a Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+            </select>
+            <select class="form-select" name="type">
+              <option selected>Select a Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+              <option value="type">Type</option>
+            </select>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+      {% include 'search' %}
+      <div class="d-flex justify-content-end align-items-center">
+        <p style="margin: 0;">Sort By:</p>
     <select name="sorting" id="sort_by" class="form-select form-select-sm w-25">
       {% for option in collection.sort_options %}
         <option value="{{ option.value }}" 
@@ -60,13 +69,14 @@
         >{{ option.name }}</option>
       {% endfor %}
     </select>
+      </div>
     {% paginate collection.products by 2 %}
       <h1>{{ collection.title }}</h1>
       {% for product in collection.products %}
         <div>
           <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
           {{ product.price | money }}
-          {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+          {% unless product.available %}<br><strong>Sold Out</strong>{% endunless %}
           <a href="{{ product.url | within: collection }}">
             <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
           </a>
