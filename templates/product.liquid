@@ -38,8 +38,11 @@
 <div class="container py-5 my-5">
   <div class="row">
     <div class="col-md-6">
+      <h4>Product Description</h4>
       {% if product.description %}
         <p>{{ product.description }}</p>
+        <h5>Ingredients</h5>
+        {{product.metafields.Ingredients.Ingredients}}
       {% else %}
         <p>Product Description (Set it in the product editor)</p>
       {% endif %}
@@ -59,9 +62,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-center">
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Featured Products</a></h4>
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Also for Birthday</a></h4>
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Similar Products</a></h4>
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#featured">Featured Products</a></h4>
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#birthday">Also for Birthday</a></h4>
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#similar-products">Similar Products</a></h4>
       </div>
       <div id="featured" class="d-none">
         {% include 'featured-collection' %}
