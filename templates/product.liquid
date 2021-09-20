@@ -1,1 +1,82 @@
-{% section 'product-template' %}
+{% assign current_product = product.selected_or_first_available_variant %}
+{% assign product_image = current_product.featured_image | default: product.featured_image %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <img class="img-fluid" src="{{ product_image | img_url: 'large' }}" alt="{{ product_image.alt }}" id="ProductMainImage">
+      {%- for image in product.images -%}
+        <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt }}">
+      {%- endfor -%}
+    </div>
+    <div class="col-md-6 col-12">
+      <h1>{{ product.title }}</h1>
+      <p>{{ current_product.price | money }}</p>
+
+      {% form 'product', product, class:"product-form", id:"AddToCartForm" %}
+        <div class="mb-3 my-3 py-3">
+          <select class="d-none" name="id" id="productSelect">
+          {%- for variant in product.variants -%}
+            {%- if variant.available -%}
+              <option value="{{ variant.id }}">{{ variant.title }}</option>
+              {%- else -%}
+              <option value="{{ variant.id }}" disabled="disabled">{{ variant.title }}</option>
+            {%- endif -%}
+          {%- endfor -%}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="Quantity">Quantity</label>
+          <input type="number" class="form-control w-25" value="12" min="12" name="quantity" id="Quantity">
+        </div>
+        <button type="submit" name="add" class="btn btn-secondary btn-lg w-100 rounded-0" id="AddToCard">Add To Cart</button>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 my-5">
+  <div class="row">
+    <div class="col-md-6">
+      {% if product.description %}
+        <p>{{ product.description }}</p>
+      {% else %}
+        <p>Product Description (Set it in the product editor)</p>
+      {% endif %}
+    </div>
+    <div class="col-md-6 text-center bg-warning py-5">
+      <p>Shelf Life:</p>
+      <p style="text-decoration: underline;">3 Months</p>
+      <p>Perfect for:</p>
+      <p style="text-decoration: underline;">Children</p>
+      <p>Certifications:</p>
+      <p style="text-decoration: underline;">Kosher</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Featured Products</a></h4>
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Also for Birthday</a></h4>
+        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="">Similar Products</a></h4>
+      </div>
+      <div id="featured" class="d-none">
+        {% include 'featured-collection' %}
+      </div>
+      <div id="birthday" class="d-none">
+        {% include 'birthday-collection' %}
+      </div>
+      <div id="similar-products" class="d-none">
+        {% for tag in product.tags %}
+          {% if tag == product.tag %}
+            
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div id=""></div>
+    </div>
+  </div>
+</div>

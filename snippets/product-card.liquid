@@ -1,0 +1,12 @@
+<div class="card" style="width: 18rem;">
+    <input type="radio">
+    {% if image != blank %}
+        <img class="card-img-top" src="{{ image | img_url: 'medium' }}" alt="{{ product.title }}">
+    {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'card-img-top' }}
+    {% endif %}
+    <div class="card-body">
+        <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+        <p>{{ product.price | money }}</p>
+     </div>
+</div>

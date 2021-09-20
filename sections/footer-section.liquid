@@ -1,2 +1,85 @@
+<footer class="footer-section bg-warning">
+    <div class="row row-cols-{{ section.settings.num_of_cols }}">
+        {% for block in section.blocks %}
+            {% assign item = block.settings %}
+            {% if block.type == 'link_list' %}
+                <div class="col">
+                    <h5>{{ item.nav_title }}</h5>
+                    {% assign footer_linklist = item.menu %}
+                    <ul class="list-unstyled text-small">
+                        {% for link in linklists[footer_linklist].links %}
+                            <li>
+                                <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% elsif block.type == 'text' %}
+            <div class="col">
+                <img src="{{ item.logo | img_url: 'master' }}" alt="{{ item.logo.alt }}">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.description }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</footer>
 {{ 'bootstrap.min.js' | asset_url | script_tag }}
 {{ 'application.js' | asset_url | script_tag }}
+{% schema %}
+{
+    "name": "Footer",
+    "settings": [
+        {
+            "type": "range",
+            "id": "num_of_cols",
+            "label": "Number of Columns",
+            "max": 4,
+            "min": 0,
+            "default": 4
+        }
+    ],
+    "max_blocks": 4,
+    "blocks": [
+        {
+            "type": "link_list",
+            "name": "Navigation",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "nav_title",
+                    "label": "Navigation Title",
+                    "default": "Quick Links"
+                },
+                {
+                    "type": "link_list",
+                    "id": "menu",
+                    "label": "Menu"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "name": "Store Details",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "logo",
+                    "label": "Select your store logo"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Store Name"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Store Description"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
