@@ -1,12 +1,15 @@
 <section class="container py-4">
     <h2 class="text-center my-3">{{ section.settings.title }}</h2>
     <div class="row">
-      {% for product in collections[section.settings.featured_collection].products %}
-      {% assign image = product.featured_media.preview_image %}
-        <div class="col">
-          {% include 'product-card' %}
-        </div>
-      {% endfor %}
+      {% paginate collections[section.settings.featured_collection].products by 4 %}
+        {% for product in collections[section.settings.featured_collection].products %}
+        {% assign image = product.featured_media.preview_image %}
+          <div class="col">
+            {% include 'product-card' %}
+          </div>
+        {% endfor %}
+        {% render 'paginate', paginate: paginate %}
+      {% endpaginate %}
     </div>
   </section>
   

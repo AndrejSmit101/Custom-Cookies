@@ -6,13 +6,11 @@
     <div class="col-md-6 col-12">
       <img class="img-fluid" src="{{ product_image | img_url: 'large' }}" alt="{{ product_image.alt }}" id="ProductMainImage">
       {%- for image in product.images -%}
-        <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt }}">
+        <img src="{{ image.src | img_url: 'small' }}" alt="{{ image.alt }}">
       {%- endfor -%}
+      <h1>{{ product.title }}</h1>
     </div>
     <div class="col-md-6 col-12">
-      <h1>{{ product.title }}</h1>
-      <p>{{ current_product.price | money }}</p>
-
       {% form 'product', product, class:"product-form", id:"AddToCartForm" %}
         <div class="mb-3 my-3 py-3">
           <select class="d-none" name="id" id="productSelect">
@@ -28,6 +26,7 @@
         <div class="mb-3">
           <label for="Quantity">Quantity</label>
           <input type="number" class="form-control w-25" value="12" min="12" name="quantity" id="Quantity">
+          <p><strong>{{ current_product.price | money }}</strong></p>
         </div>
         <button type="submit" name="add" class="btn btn-secondary btn-lg w-100 rounded-0" id="AddToCard">Add To Cart</button>
       {% endform %}
@@ -58,28 +57,151 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container py-5 my-5">
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-center">
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#featured">Featured Products</a></h4>
+        <h4 class="px-5 text-decoration-underline"><a style="text-decoration: none; color: black;" href="#featured">Featured Products</a></h4>
         <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#birthday">Also for Birthday</a></h4>
         <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#similar-products">Similar Products</a></h4>
       </div>
-      <div id="featured" class="d-none">
-        {% include 'featured-collection' %}
+      <div id="featured" class="">
+          {% section 'featured-collection' %} 
       </div>
       <div id="birthday" class="d-none">
-        {% include 'birthday-collection' %}
+        {% section 'birthday-collection' %}
       </div>
       <div id="similar-products" class="d-none">
         {% for tag in product.tags %}
           {% if tag == product.tag %}
-            
+            {% include 'product-card' %}
           {% endif %}
         {% endfor %}
       </div>
-      <div id=""></div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 my-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <h3>How It's Made</h3>
+      </div>
+      <div class="d-flex justify-content-center text-center">
+        <div class="px-5">
+          {% if {{product.metafields.How-Its-Made-Image1.image1}} %}
+            <img src="{{product.metafields.How-Its-Made-Image1.image1}}" alt="">
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'img-him' }}  
+          {% endif %}
+          {% if {{product.metafields.How-It-Made-Heading1.Heading1}} %}
+            <h5>{{product.metafields.How-It-Made-Heading1.Heading1}}</h5>
+          {% else %}
+            <h5>Example Heading</h5>  
+          {% endif %}
+          {% if {{product.metafields.How-Its-Made-Desc1.Description1}} %}
+            <p>{{product.metafields.How-Its-Made-Desc1.Description1}}</p>
+          {% else %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod, magna sed aliquet mattis, 
+              velit neque consequat ante, mollis aliquam felis velit et elit.</p>
+          {% endif %}
+        </div>
+        <div class="px-5">
+          {% if {{product.metafields.How-Its-Made-Image2.image2}} %}
+            <img src="{{product.metafields.How-Its-Made-Image2.image2}}" alt="">
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'img-him' }}
+          {% endif %}
+          {% if {{product.metafields.How-It-Made-Heading2.Heading2}} %}
+            <h5>{{product.metafields.How-It-Made-Heading2.Heading2}}</h5>
+          {% else %}
+            <h5>Example Heading</h5>  
+          {% endif %}
+          {% if {{product.metafields.How-Its-Made-Desc2.Description2}} %}
+            <p>{{product.metafields.How-Its-Made-Desc2.Description2}}</p>
+          {% else %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod, magna sed aliquet mattis, 
+              velit neque consequat ante, mollis aliquam felis velit et elit.</p>
+          {% endif %}
+        </div>
+        <div class="px-5">
+          {% if {{product.metafields.How-Its-Made-Image3.image3}} %}
+            <img src="{{product.metafields.How-Its-Made-Image3.image3}}" alt="">
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'img-him' }}
+          {% endif %}
+          {% if {{product.metafields.How-It-Made-Heading3.Heading3}} %}
+            <h5>{{product.metafields.How-It-Made-Heading3.Heading3}}</h5>
+          {% else %}
+            <h5>Example Heading</h5>  
+          {% endif %}
+          {% if {{product.metafields.How-Its-Made-Desc3.Description3}} %}
+            <p>{{product.metafields.How-Its-Made-Desc3.Description3}}</p>
+          {% else %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod, magna sed aliquet mattis, 
+              velit neque consequat ante, mollis aliquam felis velit et elit.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 my-5">
+  <div class="row">
+    <div class="col-md-6 bg-warning">
+      {% if {{product.metafields.Packed-With-Care.packed-with-care}} %}
+        {{product.metafields.Packed-With-Care.packed-with-care}}
+      {% else %}
+        {{ 'product-2' | placeholder_svg_tag: 'img-pwc' }}
+      {% endif %}
+    </div>
+    <div class="col-md-6 text-center py-5 my-5">
+      {% if {{product.metafields.pwc-heading.pwc-heading}} %}
+        <h4>{{product.metafields.pwc-heading.pwc-heading}}</h4>
+      {% else %}
+        <h4>Packed With Care</h4>
+      {% endif %}
+      {% if {{product.metafields.pwc-description.pwc-description}} %}
+        <p>{{product.metafields.pwc-description.pwc-description}}</p>
+      {% else %}
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Vivamus euismod, magna sed aliquet mattis,<br> 
+          velit neque consequat ante, mollis aliquam felis velit et elit.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 my-5">
+  <div class="row">
+    <div class="col-md-5 text-center py-5 my-5" style="background-color: #d9bc82;">
+      {% if {{product.metafields.testimonial-heading.testimonial-heading}} %}
+        <h4>{{product.metafields.testimonial-heading.testimonial-heading}}</h4>
+      {% else %}
+        <h4>Example Heading</h4>
+      {% endif %}
+    </div>
+    <div class="col-md-7 py-5 my-5 text-center" style="background-color: #FCF8F3;">
+      {% if {{product.metafields.testimonial-name.testimonial-name}} %}
+        <h5>{{product.metafields.testimonial-name.testimonial-name}}</h5>
+      {% else %}
+        <h5>Example Name</h5>
+      {% endif %}
+      {% if {{product.metafields.testimonial-stat.testimonial-stat}} %}
+        <p>{{product.metafields.testimonial-stat.testimonial-stat}}</p>
+      {% else %}
+        <p>Fusce sit amet ex faucibus, placerat augue ut, efficitur velit. Mauris a fringilla nibh, et luctus ipsum. Quisque ac auctor ligula.</p>
+      {% endif %}
+      <a href="">Read More</a>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 my-5">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Follow us on @instahandle</h1>
     </div>
   </div>
 </div>
