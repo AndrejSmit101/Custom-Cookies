@@ -61,22 +61,22 @@
   <div class="row">
     <div class="col-md-12">
       <div class="d-flex justify-content-center">
-        <h4 class="px-5 text-decoration-underline"><a style="text-decoration: none; color: black;" href="#featured">Featured Products</a></h4>
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#birthday">Also for Birthday</a></h4>
-        <h4 class="px-5"><a style="text-decoration: none; color: black;" href="#similar-products">Similar Products</a></h4>
+        <h4 class="px-5"><a class="feat" style="text-decoration: underline; color: black;" href="javascript:void(0)">Featured Products</a></h4>
+        <h4 class="px-5"><a class="bday" style="text-decoration: none; color: black;" href="javascript:void(0)">Also for Birthday</a></h4>
+        <h4 class="px-5"><a class="similar" style="text-decoration: none; color: black;" href="javascript:void(0)">Similar Products</a></h4>
       </div>
-      <div id="featured" class="">
+      <div id="featured" class="feat-list">
           {% section 'featured-collection' %} 
       </div>
-      <div id="birthday" class="d-none">
+      <div id="birthday" class="bday-list d-none">
         {% section 'birthday-collection' %}
       </div>
-      <div id="similar-products" class="d-none">
-        {% for tag in product.tags %}
-          {% if tag == product.tag %}
-            {% include 'product-card' %}
-          {% endif %}
-        {% endfor %}
+      <div id="similar-products" class="similar-list d-none">
+        {% paginate collection.products by 4 %}
+          {% for product in collection.products %}
+            {% include 'product-card' %}  
+          {% endfor %}
+        {% endpaginate %}
       </div>
     </div>
   </div>
