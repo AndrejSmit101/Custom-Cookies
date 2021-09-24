@@ -1,0 +1,83 @@
+<div class="d-flex justify-content-center align-items-center py-3">
+    <a href="" class="btn btn-primary mx-3"><</a>
+    <div class="row text-center align-items-center">
+      {% if section.settings.num_of_sel == 1 %}
+        <div class="col">
+          <a class="a1" href="javascript:void(0)">{{ section.settings.selector1 }}</a>
+        </div>
+
+        {% elsif section.settings.num_of_sel == 2 %}
+        <div class="col bg-light mx-3">
+          <a class="a1" href="javascript:void(0)">{{ section.settings.selector1 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a2" href="javascript:void(0)">{{ section.settings.selector2 }}</a>
+        </div>
+
+        {% elsif section.settings.num_of_sel == 3 %}
+        <div class="col bg-light mx-3">
+          <a class="a1" href="javascript:void(0)">{{ section.settings.selector1 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a2" href="javascript:void(0)">{{ section.settings.selector2 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a3" href="javascript:void(0)">{{ section.settings.selector3 }}</a>
+        </div>
+
+        {% elsif section.settings.num_of_sel == 4 %}
+        <div class="col bg-light mx-3">
+          <a class="a1" href="javascript:void(0)">{{ section.settings.selector1 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a2" href="javascript:void(0)">{{ section.settings.selector2 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a3" href="javascript:void(0)">{{ section.settings.selector3 }}</a>
+        </div>
+        <div class="col bg-light mx-3">
+          <a class="a4" href="javascript:void(0)">{{ section.settings.selector4 }}</a>
+        </div> 
+
+      {% endif %}
+    </div>
+    <div class="">
+      <a href="" class="btn btn-primary">></a>
+    </div>
+  </div>
+
+  {% schema %}
+{
+    "name": "Selector",
+    "settings": [
+        {
+            "type": "range",
+            "id": "num_of_sel",
+            "label": "Number of Selectors",
+            "min": 1,
+            "max": 4,
+            "default": 4
+        },
+        {
+            "type": "text",
+            "id": "selector1",
+            "label": "Selector 1"
+        },
+        {
+            "type": "text",
+            "id": "selector2",
+            "label": "Selector 2"
+        },
+        {
+            "type": "text",
+            "id": "selector3",
+            "label": "Selector 3"
+        },
+        {
+            "type": "text",
+            "id": "selector4",
+            "label": "Selector 4"
+        }
+    ]
+}
+{% endschema %}

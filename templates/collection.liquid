@@ -1,1 +1,98 @@
-{% section 'collection-template' %}
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        {% section 'selector-section.liquid' %}
+        {%- comment -%}Edit these anchor tags for style{%- endcomment -%}
+      </div>
+      <div class="d-flex justify-content-center">
+        <form action="/search" method="get" role="search">
+          {% include 'form-error', form:form %}
+            {%- comment -%}You need to change the options values to the type you want{%- endcomment -%}
+            <div class="d-flex">
+              <select class="form-select" name="type">
+                <option selected>Type entered Here</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+              </select>
+              <select class="form-select" name="type">
+                <option selected>Select a Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+              </select>
+              <select class="form-select" name="type">
+                <option selected>Select a Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+              </select>
+              <select class="form-select" name="type">
+                <option selected>Select a Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+                <option value="type">Type</option>
+              </select>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </form>
+        </div>
+        {% include 'search' %}
+        <div class="d-flex justify-content-end align-items-center">
+          <p style="margin: 0;">Sort By:</p>
+      <select name="sorting" id="sort_by" class="form-select form-select-sm w-25">
+        {% for option in collection.sort_options %}
+          <option value="{{ option.value }}" 
+            {% if option.value == collection.sort_by %}
+              selected
+            {% endif %}
+          >{{ option.name }}</option>
+        {% endfor %}
+      </select>
+        </div>
+        <div class="featured d-none">
+          {% section 'featured-collection' %}
+        </div>
+        <div class="bday d-none">
+          {% section 'birthday-collection' %}
+        </div>
+        <div class="all-products d-none">
+          {% paginate collections.all.products by 50 %}
+          <div class="row text-center">
+            <h2>All Products</h2>
+            {% for product in collections.all.products %}
+                <div class="col">
+                {% assign image = product.featured_media.preview_image %}
+                {% include 'product-card' %}
+                </div>
+            {% endfor %}
+          </div>
+            {% render 'paginate', paginate: paginate %}
+          {% endpaginate %}
+        </div>
+        <div class="regular">
+          {% paginate collection.products by 50 %}
+            <h1>{{ collection.title }}</h1>
+            <div class="product-wrapper">
+              <div class="row">
+                {% for product in collection.products %}
+                {% assign image = product.featured_image %}
+                    <div class="col-md-3">
+                        {% include 'product-card' %}
+                    </div>
+                {% else %}
+                  <p>no matches</p>
+                {% endfor %}
+              </div>
+            </div>
+            {% if paginate.pages > 1 %}
+              {% render 'paginate', paginate: paginate %}
+            {% endif %}
+          {% endpaginate %}
+        </div>
+    </div>
+  </div>
+  
+  

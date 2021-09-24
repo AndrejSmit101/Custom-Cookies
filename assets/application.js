@@ -43,5 +43,51 @@ document.querySelector('.login').addEventListener('click', function() {
     document.querySelector('.forgot-password-form').classList.add('d-none');
 
 });
+}
+// Sort by, collection page
+if(document.getElementById('sort_by') != null) {
+    document.querySelector('#sort_by').addEventListener('change', function(e){
+        var url = new URL(window.location.href);
+        url.searchParams.set('sort_by', e.currentTarget.value);
+        window.location = url.href;
+    });
+}
+// Selector, collection page
+if(document.querySelector('.a1') != null) {
+    document.querySelector('.a1').addEventListener('click', function() {
+        document.querySelector('.featured').classList.remove('d-none');
+        document.querySelector('.bday').classList.add('d-none');
+        document.querySelector('.all-products').classList.add('d-none');
+        document.querySelector('.regular').classList.add('d-none');
+        document.querySelector('.a1').classList.remove('bg-light');
+        document.querySelector('.a1').classList.add('bg-warning')
+        document.querySelector('.a2').classList.remove('bg-warning');
+        document.querySelector('.a3').classList.remove('bg-warning');
+    });
+}
 
+if(document.querySelector('.a2') != null) {
+    document.querySelector('.a2').addEventListener('click', function() {
+        document.querySelector('.featured').classList.add('d-none');
+        document.querySelector('.bday').classList.remove('d-none');
+        document.querySelector('.all-products').classList.add('d-none');
+        document.querySelector('.regular').classList.add('d-none');
+        document.querySelector('.a1').classList.remove('bg-warning');
+        document.querySelector('.a3').classList.remove('bg-warning');
+        document.querySelector('.a2').classList.remove('bg-light');
+        document.querySelector('.a2').classList.add('bg-warning')
+    });
+}
+
+if(document.querySelector('.a3') != null) {
+    document.querySelector('.a3').addEventListener('click', function() {
+        document.querySelector('.featured').classList.add('d-none');
+        document.querySelector('.bday').classList.add('d-none');
+        document.querySelector('.all-products').classList.remove('d-none');
+        document.querySelector('.regular').classList.add('d-none');
+        document.querySelector('.a3').classList.remove('bg-light');
+        document.querySelector('.a3').classList.add('bg-warning')
+        document.querySelector('.a1').classList.remove('bg-warning');
+        document.querySelector('.a2').classList.remove('bg-warning');
+    });
 }
