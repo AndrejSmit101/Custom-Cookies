@@ -1,5 +1,5 @@
 <div class="card" style="width: 18rem;">
-    <input type="radio">
+    <input type="radio" class="saved">
     {% if image != blank %}
         <img class="card-img-top" src="{{ image | img_url: 'medium' }}" alt="{{ product.title }}">
     {% else %}

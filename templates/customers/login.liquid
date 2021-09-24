@@ -3,7 +3,7 @@
         width: 100%;
         max-width: 330px;
         margin: auto;
-    ">
+    " class="loginForm">
         <h2>Login</h2>
         {% form 'customer_login' %}
     
@@ -16,7 +16,7 @@
             <input type="password" name="customer[password]" class="form-control my-2" />
         
             <input class="btn btn-primary w-100" type="submit" value="Sign In" />
-            <a id="forgotPassword" href="">Forgot password?</a>
+            <a class="forgotPassword" href="javascript:void(0)">Forgot password?</a>
         {% endform %}
     </div>
     <div id="forgot_password_form" class="forgot-password-form d-none">
@@ -27,6 +27,7 @@
                 <input type="email" name="email" id="resetPassword" class="form-control my-2">
             </div>
             <input class="btn btn-secondary w-100" type="submit" value="Reset Password">
+            <a class="login" href="javascript:void(0)">Login</a>
         {% endform %}
     </div>
 </div>

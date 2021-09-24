@@ -71,11 +71,18 @@
       <div id="birthday" class="bday-list d-none">
         {% section 'birthday-collection' %}
       </div>
-      <div id="similar-products" class="similar-list d-none">
-        {% paginate collection.products by 4 %}
-          {% for product in collection.products %}
-            {% include 'product-card' %}  
+      <div id="similar-products" class="similar-list d-none py-5">
+        {% paginate collections.all.products by 4 %}
+        <div class="row text-center">
+          <h2>Similar Products</h2>
+          {% for product in collections.all.products %}
+              <div class="col">
+              {% assign image = product.featured_media.preview_image %}
+              {% include 'product-card' %}
+              </div>
           {% endfor %}
+        </div>
+          {% render 'paginate', paginate: paginate %}
         {% endpaginate %}
       </div>
     </div>
