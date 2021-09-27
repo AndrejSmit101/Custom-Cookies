@@ -48,11 +48,29 @@
     </div>
     <div class="col-md-6 text-center bg-warning py-5">
       <p>Shelf Life:</p>
-      <p style="text-decoration: underline;">3 Months</p>
+      <p style="text-decoration: underline;">
+        {% if {{product.metafields.shelf-life.shelf-life}} %}
+          {{product.metafields.shelf-life.shelf-life}}
+        {% else %}
+          Example Months
+        {% endif %}
+      </p>
       <p>Perfect for:</p>
-      <p style="text-decoration: underline;">Children</p>
+      <p style="text-decoration: underline;">
+        {% if {{product.metafields.perfect-for.perfect-for}} %}
+          {{product.metafields.perfect-for.perfect-for}}
+        {% else %}
+          Example
+        {% endif %}
+      </p>
       <p>Certifications:</p>
-      <p style="text-decoration: underline;">Kosher</p>
+      <p style="text-decoration: underline;">
+        {% if {{product.metafields.certificate.certificate}} %}
+          {{product.metafields.certificate.certificate}}
+        {% else %}
+          Example
+        {% endif %}
+      </p>
     </div>
   </div>
 </div>

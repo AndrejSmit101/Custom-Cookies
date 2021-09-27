@@ -4,12 +4,16 @@
     <div class="card" style="width: 18rem;">
       {% if item.featured_image %}
         <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-          {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
+          {% if item.featured_image.src %}
+            {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'card-img-top' }}
+          {% endif %}
+
         </a>
       {% endif %}
       <div class="card-body">
         <h5>{{ item.title | link_to: item.url }}</h5>
-        <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
       </div>
     </div>
     {% else %}
