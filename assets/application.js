@@ -47,8 +47,16 @@ document.querySelector('.login').addEventListener('click', function() {
 // Sort by, collection page
 if(document.getElementById('sort_by') != null) {
     document.querySelector('#sort_by').addEventListener('change', function(e){
-        var url = new URL(window.location.href);
+        const url = new URL(window.location.href);
         url.searchParams.set('sort_by', e.currentTarget.value);
+        window.location = url.href;
+    });
+}
+// Type, collection page
+if(document.getElementById('type') != null) {
+    document.querySelector('#type').addEventListener('change', function(e) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('type', e.currentTarget.value);
         window.location = url.href;
     });
 }

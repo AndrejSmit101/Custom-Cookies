@@ -1,4 +1,4 @@
-{% paginate search.results by 3 %}
+
 <div class="container">
   <div class="row">
     <form action="/search" method="get" role="search">
@@ -77,8 +77,3 @@
     {% endif %}
   </div>
 </div>
-<div class="row">
-  {% render 'paginate', paginate: paginate %}
-</div>
-
-{% endpaginate %}

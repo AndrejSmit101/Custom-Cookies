@@ -9,37 +9,34 @@
           {% include 'form-error', form:form %}
             {%- comment -%}You need to change the options values to the type you want{%- endcomment -%}
             <div class="d-flex">
-              <select class="form-select" name="type">
+              <select id="type" class="form-select" name="type">
                 <option selected>Type entered Here</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
               </select>
-              <select class="form-select" name="type">
+              <select id="type" class="form-select" name="type">
                 <option selected>Select a Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
               </select>
-              <select class="form-select" name="type">
+              <select id="type" class="form-select" name="type">
                 <option selected>Select a Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
               </select>
-              <select class="form-select" name="type">
+              <select id="type" class="form-select" name="type">
                 <option selected>Select a Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
                 <option value="type">Type</option>
               </select>
             </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Search</button>
-            </div>
+            <br>
           </form>
         </div>
-        {% include 'search' %}
         <div class="d-flex justify-content-end align-items-center">
           <p style="margin: 0;">Sort By:</p>
       <select name="sorting" id="sort_by" class="form-select form-select-sm w-25">
